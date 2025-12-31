@@ -1,0 +1,59 @@
+# Akobo Data Science & AI Example (Python)
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+# -----------------------------
+# 1. Create Akobo Dataset
+# -----------------------------
+data = {
+    "Year": [2018, 2019, 2020, 2021, 2022, 2023],
+    "Population": [42000, 43500, 45000, 46800, 49000, 51500],
+    "Rainfall_mm": [820, 790, 860, 900, 880, 910],
+    "School_Enrollment": [7200, 7500, 7700, 8100, 8600, 9100]
+}
+
+df = pd.DataFrame(data)
+print("Akobo Dataset:\n", df)
+
+# -----------------------------
+# 2. Basic Analysis
+# -----------------------------
+print("\nSummary Statistics:")
+print(df.describe())
+
+# -----------------------------
+# 3. Visualization
+# -----------------------------
+plt.figure()
+plt.plot(df["Year"], df["Population"], marker="o")
+plt.title("Population Growth in Akobo")
+plt.xlabel("Year")
+plt.ylabel("Population")
+plt.show()
+
+plt.figure()
+plt.bar(df["Year"], df["School_Enrollment"])
+plt.title("School Enrollment in Akobo")
+plt.xlabel("Year")
+plt.ylabel("Students")
+plt.show()
+
+# -----------------------------
+# 4. Simple AI / ML Model
+# Predict population based on rainfall
+# -----------------------------
+X = df[["Rainfall_mm"]]
+y = df["Population"]
+
+model = LinearRegression()
+model.fit(X, y)
+
+# Prediction
+rainfall_future = np.array([[950]])
+predicted_population = model.predict(rainfall_future)
+
+print("\nPredicted population in Akobo with 950mm rainfall:")
+print(int(predicted_population[0]))
